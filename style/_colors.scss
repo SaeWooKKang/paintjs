@@ -1,0 +1,47 @@
+@mixin  flexCenter($flex-direction) {
+  display: flex;
+  flex-direction: $flex-direction;
+  align-items: center;
+  justify-content: center;//없음
+} 
+
+.controls{
+  @include flexCenter(column);
+}
+.control_range{
+  margin-bottom: $margin_buttom;
+}
+.control_btns{
+  margin-bottom: $margin_buttom;
+  button {
+    all: unset;
+    cursor: pointer;
+    background-color:$background_color;
+    padding: 5px 0;
+    width: 80px;
+    text-align: center;
+    border-radius: 5px;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+    color: $btn_color;
+    text-transform: uppercase;
+    font-weight: 800px;
+    font-size: 12px;
+    box-shadow: $box_shadow;
+  }
+  button:active{
+    transform: $scale;
+  }
+}
+.control_colors{
+  display: flex;
+  .control_color{
+    width:$color_size;
+    height:$color_size;
+    border-radius: $color_size / 2;
+    cursor: pointer;
+    box-shadow: $box_shadow;
+  }
+  .control_color:active{
+    transform:$scale;
+  }
+}

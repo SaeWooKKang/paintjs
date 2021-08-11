@@ -12,91 +12,101 @@ const COLOR_BLACK_RGB = "rgb(44, 44, 44)";
 
 let painting = false;
 let filling = false;
-let nowColor ="";
+let nowColor = "";
 
 ctx.lineWidth = 2.5;
 ctx.strokeStyle = COLOR_BLACK;
 ctx.fillStyle = COLOR_WHITE;
-ctx.fillRect(0,0,500,500);
+ctx.fillRect(0, 0, 500, 500);
 paint.style.backgroundColor = COLOR_BLACK;
 paint.style.color = COLOR_WHITE;
 
-function onMouseMove(event){
+function onMouseMove(event) {
     const x = event.offsetX;
     const y = event.offsetY;
-    if(painting === false){
+    if (painting === false) {
         ctx.beginPath();
-    }else{
-        ctx.lineTo(x,y);
+    } else {
+        ctx.lineTo(x, y);
         ctx.stroke();
     }
 }
-function onMouseDown(){
+
+function onMouseDown() {
     painting = true;
 }
-function onMouseUp(){
+
+function onMouseUp() {
     painting = false;
 }
-function onMouseLeave(){
+
+function onMouseLeave() {
     painting = false;
 }
-function handleColorClick(event){
+
+function handleColorClick(event) {
     nowColor = event.target.style.backgroundColor;
-    
+
     ctx.strokeStyle = nowColor;
     ctx.fillStyle = nowColor;
 
-    if(filling === true){
+    if (filling === true) {
         fill.style.backgroundColor = nowColor;
-        paint.style.backgroundColor = COLOR_WHITE;// 반대놈 배경 흰색
+        paint.style.backgroundColor = COLOR_WHITE; // 반대 배경 흰색
         paint.style.color = COLOR_BLACK;
-        if(nowColor === COLOR_BLACK_RGB){
+        if (nowColor === COLOR_BLACK_RGB) {
             fill.style.color = COLOR_WHITE;
-        }else{
-            fill.style.color=COLOR_BLACK;
+        } else {
+            fill.style.color = COLOR_BLACK;
         }
-    }else{
+    } else {
         paint.style.backgroundColor = nowColor;
         fill.style.backgroundColor = COLOR_WHITE;
         fill.style.color = COLOR_BLACK;
-        if(nowColor === COLOR_BLACK_RGB){
+        if (nowColor === COLOR_BLACK_RGB) {
             paint.style.color = COLOR_WHITE;
-        }else{
+        } else {
             paint.style.color = COLOR_BLACK;
         }
-    }  
+    }
 }
-function handleFillClick(){
+
+function handleFillClick() {
     filling = true;
-    paint.style.backgroundColor = COLOR_WHITE;//반대놈 초기화
-    paint.style.color = COLOR_BLACK;//반대놈 초기화
-    fill.style.backgroundColor = nowColor;//처음 클릭시 bg설정
-    if(nowColor === COLOR_BLACK_RGB){
+    paint.style.backgroundColor = COLOR_WHITE; //반대 초기화
+    paint.style.color = COLOR_BLACK; //반대 초기화
+    fill.style.backgroundColor = nowColor; //처음 클릭시 bg설정
+    if (nowColor === COLOR_BLACK_RGB) {
         fill.style.color = COLOR_WHITE;
     }
 }
-function canvasClick(){
-    if(filling === true){
-        ctx.fillRect(0,0,500,500);
+
+function canvasClick() {
+    if (filling === true) {
+        ctx.fillRect(0, 0, 500, 500);
     }
 }
-function handlePaintClick(){
+
+function handlePaintClick() {
     filling = false;
     fill.style.backgroundColor = COLOR_WHITE;
     paint.style.color = COLOR_BLACK;
-    if(nowColor === COLOR_BLACK_RGB){
+    if (nowColor === COLOR_BLACK_RGB) {
         fill.style.color = COLOR_BLACK;
         paint.style.color = COLOR_WHITE;
     }
     paint.style.backgroundColor = nowColor;
 }
-function handleInputRange(event){
+
+function handleInputRange(event) {
     ctx.lineWidth = event.target.value;
 }
-function handleContextMenu(event){
+
+function handleContextMenu(event) {
     event.preventDefault();
 }
-function handleSaveClick(){
+
+function handleSaveClick() {
     const a = document.createElement("a");
     const imgURL = canvas.toDataURL();
     a.href = imgURL;
@@ -105,17 +115,15 @@ function handleSaveClick(){
 }
 
 canvas.addEventListener("mousemove", onMouseMove);
-canvas.addEventListener("mousedown",onMouseDown);
+canvas.addEventListener("mousedown", onMouseDown);
 canvas.addEventListener("mouseup", onMouseUp);
 canvas.addEventListener("mouseleave", onMouseLeave);
 
-Array.from(color).forEach(color => color.addEventListener("click",handleColorClick));
+Array.from(color).forEach(color => color.addEventListener("click", handleColorClick));
 paint.addEventListener("click", handlePaintClick);
-fill.addEventListener("click",handleFillClick);
+fill.addEventListener("click", handleFillClick);
 
 canvas.addEventListener("click", canvasClick);
 range.addEventListener("input", handleInputRange);
 canvas.addEventListener("contextmenu", handleContextMenu);
 save.addEventListener("click", handleSaveClick);
-
-

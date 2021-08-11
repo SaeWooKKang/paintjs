@@ -1,0 +1,17 @@
+$background_color: #f6f9fc;
+$btn_color: #2c2c2c;
+$margin_buttom:20px;
+$box_shadow:0 4px 6px rgba(50, 50, 93, 0.11), 0 1px 3px rgba(0, 0, 0, 0.08);
+$scale:scale(0.98);
+$color_size:50px;
+
+@import './colors';
+@import './canvas';
+
+body{
+  @include flexCenter(column);
+  
+  height: 100%;
+  background-color: $background_color;
+  margin-top: 50px;
+}
